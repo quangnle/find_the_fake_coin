@@ -2,6 +2,7 @@ var ResultBox = function(x,y,s){
 	this.x = x; 
 	this.y = y;
 	this.s = s;
+	this.isClicked = false;
 	
 	this.draw = function(){
 		push();
@@ -23,32 +24,33 @@ var ResultBox = function(x,y,s){
 	
 	this.onClicked = function(mx, my, coins, sc){
 		let cnt = 0;
-		let id = -1;
-		
-		if ((mx > this.x && mx < this.x + this.s) && 
-			(my > this.y + this.s && my < this.y + this.s*1.5)) {
-			for(let i =0; i< coins.length; i++){
-				if (this.isInCheckedRegion(coins[i].x, coins[i].y)) {
-					cnt ++;
-					id = i;
+		let id = -1;		
+		if (!this.isClicked) {
+			if ((mx > this.x && mx < this.x + this.s) && 
+				(my > this.y + this.s && my < this.y + this.s*1.5)) {
+				for(let i =0; i< coins.length; i++){
+					if (this.isInCheckedRegion(coins[i].x, coins[i].y)) {
+						cnt ++;
+						id = i;
+					}
 				}
-			}
-		
-			if(cnt == 1){
-				if (coins[id].w != coins[0].w && 
-				coins[id].w != coins[coins.length] &&
-				coins[id].w != coins[coins.length >> 1]) {
-					alert("Correct!!! You're genius!");
-				} else {
-					alert("Incorrect. You've failed.");
-					sc.t = 0;
-				}
-			} else if (cnt > 1 ) {
-				alert("Can only check 1 coin at a time.");
-			} else {
-				alert("Drop a coin to the above box to check");
-			}		
 			
+				if(cnt == 1){
+					if (coins[id].w * 2 != (coins[0].w + coins[1].w) ) {
+						alert("Correct!!! You're genius!");
+					} else {
+						alert("Incorrect. You've failed.");
+						sc.t = 0;
+					}
+					this.isClicked = true;
+				} else if (cnt > 1 ) {
+					alert("Can only check 1 coin at a time.");
+				} else {
+					alert("Drop a coin to the above box to check");
+				}		
+				
+			}
 		}
+		
 	}
 }
