@@ -9,8 +9,8 @@ function setup(){
 		let coin = new Coin(i,50+i*30,50,20,10);
 		coins.push(coin);
 	}
-	let fkId = Math.floor(Math.random()*11-0.000001);
-	coins[fkId].w += (Math.random()*2 - 1);
+	let fkId = Math.floor(Math.random()*11);
+	coins[fkId].w += Math.random()*2 - 1;
 }
 
 function sqDist(p1, p2){
