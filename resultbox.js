@@ -51,6 +51,9 @@ var ResultBox = function(x,y,s){
 				
 			}
 		}
+		else {
+			alert("You can only check once.");
+		}
 		
 	}
 }
